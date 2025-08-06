@@ -31,7 +31,7 @@ def get_guild_members(guild_id):
     members = []
     page = 1
     while True:
-        url = f"https://boardgamegeek.com/xmlapi2/guild?id={guild_id}&members=1&page={page}&excludesubtype=boardgameexpansion"
+        url = f"https://boardgamegeek.com/xmlapi2/guild?id={guild_id}&members=1&page={page}n"
         root = fetch_xml(url)
         if root is None:
             break
@@ -45,7 +45,7 @@ def get_guild_members(guild_id):
 @st.cache_data(ttl=3600)
 def get_collection(username):
     """Obtiene la colección de un usuario."""
-    url = f"https://boardgamegeek.com/xmlapi2/collection?username={username}&own=1"
+    url = f"https://boardgamegeek.com/xmlapi2/collection?username={username}&own=1&excludesubtype=boardgameexpansio"
     root = fetch_xml(url)
     if root is None:
         return []
@@ -114,5 +114,6 @@ if st.button("Cargar colección"):
                         )
                         st.caption(f"{game['name']} ({game['owner']})")
                     col_idx = (col_idx + 1) % 5
+
 
 
