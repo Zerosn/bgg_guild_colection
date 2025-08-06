@@ -73,7 +73,11 @@ if st.button("Cargar colección"):
             for user in members:
                 games = get_collection(user)
                 all_games.extend(games)
-
+            # Nombre Guild
+            url = f"https://boardgamegeek.com/xmlapi2/guild?id={guild_id}"
+            root = fetch_xml(url)
+            guild_name = root.attrib.get("name", "Nombre no disponible")
+            st.title(f"Guid: {guild_name}")
             # Eliminar duplicados por ID
             unique_games = {g["id"]: g for g in all_games}.values()
 
@@ -110,3 +114,4 @@ if st.button("Cargar colección"):
                         )
                         st.caption(f"{game['name']} ({game['owner']})")
                     col_idx = (col_idx + 1) % 5
+
