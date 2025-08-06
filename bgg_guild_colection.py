@@ -31,7 +31,7 @@ def get_guild_members(guild_id):
     members = []
     page = 1
     while True:
-        url = f"https://boardgamegeek.com/xmlapi2/guild?id={guild_id}&members=1&page={page}"
+        url = f"https://boardgamegeek.com/xmlapi2/guild?id={guild_id}&members=1&page={page}&excludesubtype=boardgameexpansion"
         root = fetch_xml(url)
         if root is None:
             break
@@ -114,4 +114,5 @@ if st.button("Cargar colección"):
                         )
                         st.caption(f"{game['name']} ({game['owner']})")
                     col_idx = (col_idx + 1) % 5
+
 
