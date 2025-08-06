@@ -42,7 +42,7 @@ st.markdown("""
     width: 34px;
     height: 40px;
     background-color: #FF9900;
-    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    clip-path: polygon(50% 0, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,4 +209,5 @@ if st.button("Cargar colección"):
 
                         st.markdown(html, unsafe_allow_html=True)
                     col_idx = (col_idx + 1) % 5
+
 
