@@ -12,7 +12,7 @@ st.set_page_config(
     page_icon="🎲",
     layout="wide"
 )
-
+# ---------------- ESTILOS CSS ----------------
 st.markdown("""
 <style>
 .game-card-container {
@@ -39,7 +39,7 @@ st.markdown("""
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 34px;
+    width: 40px;
     height: 40px;
     background-color: #FF9900;
     clip-path: polygon(50% 0, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
@@ -59,7 +59,14 @@ st.markdown("""
     font-size: 14px;
     text-align: center;
     word-wrap: break-word;
+    margin-bottom: 0;
 }
+
+.game-players {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 0;
+}            
 </style>
 """, unsafe_allow_html=True)
 
@@ -129,13 +136,15 @@ def get_collection(username):
             "name": item.find("name").text,
             "image": item.find("image").text if item.find("image") is not None else None,
             "owner": username,
-            "score": item.find('stats').find('rating').find("average").attrib.get("value", "N/A")
+            "score": item.find('stats').find('rating').find("average").attrib.get("value", "N/A"),
+            "minplayers":item.find('stats').attrib.get("minplayers", "N/A"),
+            "maxplayers":item.find('stats').attrib.get("maxplayers", "N/A")
         })
     return games
 
 # ---------------- INTERFAZ ----------------
-st.title("🎲 Colección de la Guild en BoardGameGeek")
-guild_id = st.text_input("Ingrese el ID de la Guild:", "4523")
+st.title("Visor de Colecciónes de Guild")
+guild_id = st.text_input("Ingrese el ID de la Guild de la bgg:", "4523")
 
 if st.button("Cargar colección"):
     with st.spinner("Descargando datos..."):
@@ -204,10 +213,9 @@ if st.button("Cargar colección"):
                                         </div>
                                     </div>
                                     <p class="game-title">{game['name']}</p>
+                                    <p class="game-players">({game['minplayers']} - {game['maxplayers']} jugadores)</p>
                                 </div>
                                 """
 
                         st.markdown(html, unsafe_allow_html=True)
                     col_idx = (col_idx + 1) % 5
-
-
